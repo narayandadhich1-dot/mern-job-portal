@@ -7,13 +7,10 @@ const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // If user is not logged in OR is not a recruiter, redirect to home
     if (user === null || user.role !== "recruiter") {
       navigate("/");
     }
-  }, [user, navigate]); // Added dependencies for reliability
-
-  // The return must be INSIDE the component function
+  }, [user, navigate]);
   return (
     <>
       {children}

@@ -99,7 +99,7 @@ const ApplicantsTable = ({ applicants }) => {
                         <div
                           onClick={() => {
                             statusHandler(status, application._id);
-                            setOpenId(null); // 👈 CLOSE POPOVER
+                            setOpenId(null); 
                           }}
                           className="cursor-pointer rounded px-2 py-1 hover:bg-gray-100 capitalize"
                         >

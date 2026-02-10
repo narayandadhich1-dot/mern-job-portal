@@ -21,7 +21,7 @@ export const registerCompany = async (req, res) => {
 
     company = await Company.create({
       ...req.body,
-      userId: req.id, //logged in user id from auth middleware
+      userId: req.id, 
     });
 
     return res.status(201).json({
@@ -36,7 +36,7 @@ export const registerCompany = async (req, res) => {
 
 export const getCompany = async (req, res) => {
   try {
-    const userId = req.id; //logged in user id from auth middleware
+    const userId = req.id;
     const companies = await Company.find({ userId });
     if (!companies) {
       return res

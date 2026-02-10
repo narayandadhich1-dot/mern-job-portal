@@ -38,8 +38,6 @@ const Job = ({ job }) => {
           </Button>
           <div className="overflow-hidden">
             {" "}
-            {/* Added overflow-hidden */}
-            {/* ADDED: line-clamp-1 to prevent height stretching */}
             <h1 className="font-medium text-lg line-clamp-1">
               {job?.company?.companyName}
             </h1>

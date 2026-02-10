@@ -122,10 +122,9 @@ export const updateProfile = async (req, res) => {
             const cloudResponse = await new Promise((resolve, reject) => {
                 const uploadStream = cloudinary.uploader.upload_stream(
                     { 
-                        resource_type: "auto", // Keeps automatic detection for PDFs
+                        resource_type: "auto",
                         folder: "resumes",
                         access_mode: "public",
-                        // This helps browsers treat it as a proper document
                         flags: "attachment" 
                     },
                     (error, result) => {
@@ -148,7 +147,6 @@ export const updateProfile = async (req, res) => {
         if (bio) user.profile.bio = bio;
         if (skills) user.profile.skills = skills.split(",").map(skill => skill.trim());
 
-        // Tells Mongoose to save the nested 'profile' object
         user.markModified('profile'); 
 
         await user.save();

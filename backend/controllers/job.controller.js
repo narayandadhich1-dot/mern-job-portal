@@ -64,17 +64,13 @@ export const postJob = async (req, res) => {
     });
   }
 };
-
-// GET ALL JOBS (SEARCH)
-// GET ALL JOBS (SEARCH & FILTER)
 export const getAllJobs = async (req, res) => {
   try {
     const keywords = req.query.keywords || "";
     const location = req.query.location || "";
     const industry = req.query.industry || "";
-    const salaryRange = req.query.salary || ""; // Example: "6-10"
+    const salaryRange = req.query.salary || ""; 
 
-    // Initial Query for Search
     const query = {
       $or: [
         { title: { $regex: keywords, $options: "i" } },
@@ -82,25 +78,19 @@ export const getAllJobs = async (req, res) => {
       ],
     };
 
-    // Add Location Filter if present
     if (location) {
       query.location = { $regex: location, $options: "i" };
     }
-
-    // Add Industry Filter if present
     if (industry) {
       query.requirements = { $regex: industry, $options: "i" };
     }
 
-    // --- SALARY FILTER LOGIC ---
     if (salaryRange) {
-      // Splitting "6-10" into [6, 10]
       const [min, max] = salaryRange.split("-").map(Number);
 
       if (!isNaN(min) && !isNaN(max)) {
         query.salary = { $gte: min, $lte: max };
       } else if (!isNaN(min)) {
-        // Handles "15+" case if sent as "15-100" or similar
         query.salary = { $gte: min };
       }
     }

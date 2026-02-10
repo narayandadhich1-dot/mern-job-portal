@@ -45,7 +45,6 @@ const FilterCard = ({ filters, setFilters }) => {
                   checked={filters[data.filterType].includes(item)}
                   onCheckedChange={() => handleChange(data.filterType, item)}
                 />
-                {/* UPDATE THIS LINE BELOW */}
                 <Label htmlFor={itemId} className="cursor-pointer">
                   {data.filterType === "salary"
                     ? `${item.replace("-", " to ")} LPA`

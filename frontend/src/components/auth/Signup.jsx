@@ -38,7 +38,6 @@ const Signup = () => {
     const validateForm = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const mobileRegex = /^[0-9]{10}$/;
-        // At least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
         if (!input.fullname.trim()) {
@@ -66,8 +65,6 @@ const Signup = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-
-        // Run validation before making the API call
         if (!validateForm()) return;
 
         const formData = new FormData();

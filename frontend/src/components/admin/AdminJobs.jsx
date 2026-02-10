@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import AdminJobsTable from "./AdminJobsTable";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setSearchJobByText } from "@/redux/jobslice"; // 1. Fixed import
+import { setSearchJobByText } from "@/redux/jobslice"; 
 import useGetAllAdminJobs from "@/hooks/UseGetAllAdminJobs";
 
 const AdminJobs = () => {
@@ -15,7 +15,6 @@ const AdminJobs = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // 2. Dispatch to Job slice, not Company slice
     dispatch(setSearchJobByText(input)); 
   }, [input, dispatch]);
 
@@ -31,7 +30,7 @@ const AdminJobs = () => {
           />
           <Button
             className={"cursor-pointer"}
-            onClick={() => navigate("/admin/jobs/create")} // 3. Updated path
+            onClick={() => navigate("/admin/jobs/create")}
           >
             New Job
           </Button>

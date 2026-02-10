@@ -33,25 +33,19 @@ const PostJob = () => {
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  // Get companies from the Redux store
   const { companies = [] } = useSelector((store) => store.company);
 
   const changeEventHandler = (e) => {
     const { name, value } = e.target;
-    // Automatically convert position to a number for the backend
     setInput({ ...input, [name]: name === "position" ? Number(value) : value });
   };
 
   const selectChangeHandler = (value) => {
-    // value here is company._id from SelectItem
     setInput({ ...input, companyId: value });
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
-    // Check your console to see if companyId is empty or filled
     console.log("Submitting Payload:", input);
 
     if (!input.companyId) {
@@ -139,7 +133,6 @@ const PostJob = () => {
                           value={company._id}
                           className="cursor-pointer"
                         >
-                          {/* Use fallback if name property is different (e.g., companyName) */}
                           {company?.name || company?.companyName || "Unnamed Company"}
                         </SelectItem>
                       ))}

@@ -16,8 +16,6 @@ import { setLoading, setUser, setIsAuthenticated } from "../../redux/authslice.j
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
-    // 1. Get 'user' from the Redux store
     const { loading, user } = useSelector((store) => store.auth);
     
     const [input, setInput] = useState({
@@ -25,8 +23,6 @@ const Login = () => {
         password: "",
         role: "",
     });
-
-    // 2. Add useEffect to check if user is already logged in
     useEffect(() => {
         if (user) {
             navigate("/");

@@ -30,8 +30,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
   });
 
   const dispatch = useDispatch();
-
-  // Sync form when redux user changes
   useEffect(() => {
     if (user && open) {
       setInput({
@@ -71,7 +69,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
       formData.append("skills", input.skills || "");
 
       if (input.file) {
-        formData.append("file", input.file); // 🔴 MUST match multer field
+        formData.append("file", input.file); 
       }
 
       const res = await axios.post(

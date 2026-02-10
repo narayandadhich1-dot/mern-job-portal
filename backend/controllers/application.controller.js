@@ -54,7 +54,7 @@ export const getAppliedJobs = async (req, res) => {
             .populate({ 
                 path: "job",
                 populate: {
-                    path: "company" // This grabs the name, logo, etc.
+                    path: "company"
                 }
             });
 
@@ -65,7 +65,6 @@ export const getAppliedJobs = async (req, res) => {
             });
         }
         
-        // Ensure this key is 'applications' (plural)
         return res.status(200).json({ applications, success: true }); 
     } catch (error) {
         console.log(error);
@@ -73,8 +72,6 @@ export const getAppliedJobs = async (req, res) => {
     }
 };
 
-
-// check how many applicants applied for a job
 export const getApplicants = async (req, res) => {
     try {
         const jobId = req.params.id;
@@ -90,7 +87,6 @@ export const getApplicants = async (req, res) => {
         console.log(error);
     }
 }
-// update application status
 export const updateStatus = async (req, res) => {
     try {
         const applicationId = req.params.id;
@@ -102,8 +98,6 @@ export const updateStatus = async (req, res) => {
         if (!application) {
             return res.status(404).json({ message: "Application not found", success: false });
         }
-
-        //update status
         application.status = status.toLowerCase();
         await application.save();
         return res.status(200).json({ message: "Status updated successfully", success: true });

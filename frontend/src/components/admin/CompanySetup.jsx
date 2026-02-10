@@ -13,7 +13,6 @@ import useGetCompanyById from "@/hooks/useGetCompanyById";
 
 const CompanySetup = () => {
     const params = useParams();
-    // 1. We trigger the hook using the ID from the URL
     useGetCompanyById(params.id);
 
     const [input, setInput] = useState({
@@ -40,7 +39,6 @@ const CompanySetup = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        // 2. We send "companyName" to match your Backend Controller
         formData.append("companyName", input.name); 
         formData.append("description", input.description);
         formData.append("website", input.website);
@@ -73,7 +71,6 @@ const CompanySetup = () => {
 
     useEffect(() => {
         if (singleCompany) {
-            // 3. We check BOTH 'name' and 'companyName' to be 100% sure it fills
             setInput({
                 name: singleCompany.companyName || singleCompany.name || "",
                 description: singleCompany.description || "",
