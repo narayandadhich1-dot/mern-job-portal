@@ -13,13 +13,9 @@ dotenv.config({});
 const app = express();
 
 const corsOptions = {
-    origin: [
-        "http://localhost:5173", 
-        "https://mern-job-portal-sepia.vercel.app",
-        "https://mern-job-portal-git-main-narayan-dadhichs-projects.vercel.app"
-    ],
+    origin: true,
     credentials: true,
-    optionsSuccessStatus: 200 
+    
 };
 
 app.use(cors(corsOptions));
