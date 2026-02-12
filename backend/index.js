@@ -8,20 +8,9 @@ import companyRoutes from "./routes/company.route.js";
 import jobRoutes from "./routes/job.route.js";
 import applicationRoutes from "./routes/application.route.js";
 
-
 dotenv.config({});
 
 const app = express();
-app.use(cors(corsOptions));
-
-app.get("/home", (req, res) => {
-  return res.status(200).json({ message: "Backend is working fine" }); 
-});
-
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 const corsOptions = {
     origin: [
@@ -30,11 +19,21 @@ const corsOptions = {
         "https://mern-job-portal-git-main-narayan-dadhichs-projects.vercel.app"
     ],
     credentials: true,
+    optionsSuccessStatus: 200 
 };
 
-const PORT = process.env.PORT || 3000;
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); 
 
-//api's
+app.get("/home", (req, res) => {
+    return res.status(200).json({ message: "Backend is working fine" }); 
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+const PORT = process.env.PORT || 3000;
 
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/company", companyRoutes);
@@ -44,5 +43,5 @@ app.use("/api/v1/application", applicationRoutes);
 connectDB();
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
