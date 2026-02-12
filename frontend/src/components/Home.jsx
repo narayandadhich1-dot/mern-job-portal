@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import Navbar from "./shared/Navbar";
 import HeroSection from "./ui/heroSection";
-import CategoryCarousel from "./ui/categoryCarousel";
+import CategoryCarousel from "./ui/CategoryCarousel";
 import LatestJobs from "./ui/LatestJob";
 import Footer from "./shared/Footer";
 import useGetAllJobs from "@/hooks/useGetAllJobs";
 import { useSelector } from "react-redux";
-import store from "@/redux/store";
 import {useNavigate } from "react-router-dom";
 
 const Home = () => {
