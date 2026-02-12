@@ -23,12 +23,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const corsOptions = {
-    origin: ["http://localhost:5173", "https://mern-job-portal-sepia.vercel.app"], 
+    origin: [
+        "http://localhost:5173", 
+        "https://mern-job-portal-sepia.vercel.app",
+        "https://mern-job-portal-git-main-narayan-dadhichs-projects.vercel.app"
+    ],
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
 };
-app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3000;
 
