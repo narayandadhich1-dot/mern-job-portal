@@ -12,6 +12,7 @@ import applicationRoutes from "./routes/application.route.js";
 dotenv.config({});
 
 const app = express();
+app.use(cors(corsOptions));
 
 app.get("/home", (req, res) => {
   return res.status(200).json({ message: "Backend is working fine" }); 
