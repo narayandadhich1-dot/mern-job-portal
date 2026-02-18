@@ -34,15 +34,17 @@ export const postJob = async (req, res) => {
       });
     }
 
+    // Explicitly convert types to match your Schema
     const job = await Job.create({
       title,
       description,
       location,
-      requirements,
       jobType,
+      // Convert string requirements to an array if it's sent as "node, react, css"
+      requirements: Array.isArray(requirements) ? requirements : requirements.split(",").map(item => item.trim()),
       salary: Number(salary),
-      experienceLevel: experience,
-      position,
+      experienceLevel: Number(experience), // Fixed: Convert to Number
+      position: Number(position),          // Fixed: Convert to Number
       company: companyId,
       createdBy: userId,
     });
@@ -57,7 +59,7 @@ export const postJob = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Post Job Error Detailed:", error); // This will show exactly what field failed in your terminal
     return res.status(500).json({
       message: "Server Error",
       success: false,
