@@ -4,11 +4,7 @@ import { Job } from "../models/job.models.js";
 export const postJob = async (req, res) => {
   try {
     
-      console.log("USER ID:", req.id);
-      console.log("Salary:", salary);
-console.log("Experience:", experience);
-console.log("Position:", position);
-
+     
     const {
       title,
       description,
@@ -20,6 +16,12 @@ console.log("Position:", position);
       position,
       companyId,
     } = req.body;
+
+     console.log("USER ID:", req.id);
+      console.log("Salary:", salary);
+console.log("Experience:", experience);
+console.log("Position:", position);
+
 
     const userId = req.id;
 
