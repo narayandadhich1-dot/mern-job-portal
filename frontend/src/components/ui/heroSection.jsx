@@ -17,30 +17,40 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="text-center">
-      <div className="flex flex-col gap-5 my-10">
-        <span className="px-4 mx-auto py-2 rounded-full bg-gray-100 text-[#F83002] font-medium">
+    <div className="relative h-[90vh] w-full flex items-center justify-center text-center bg-cover bg-center bg-no-repeat" 
+         style={{ 
+            backgroundImage: "url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop')",
+            backgroundAttachment: "fixed" // Smooth parallax effect
+         }}>
+      
+      {/* Overlay: Dark at top for Navbar, Transparent in middle, White at bottom to blend */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-white z-0"></div>
+
+      <div className="relative z-10 flex flex-col gap-5 max-w-4xl px-4 mt-16">
+        <span className="px-4 mx-auto py-2 rounded-full bg-white/10 backdrop-blur-lg text-white border border-white/20 font-medium shadow-sm">
           No.1 Job Hunt Platform
         </span>
 
-        <h1 className="text-5xl font-bold">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-tight drop-shadow-md">
           Search, Apply <br />& Get Your{" "}
-          <span className="text-[#6A38C2]">Dream Job</span>
+          <span className="text-[#9b72e9]">Dream Job</span>
         </h1>
-        <p className="text-lg text-gray-600">
+        
+        <p className="text-lg text-gray-100 font-medium drop-shadow-sm">
           Find the perfect job that matches your skills and experience.
         </p>
+
         <form 
           onSubmit={searchJobHandler} 
-          className="flex w-[40%] shadow-lg border border-gray-200 pl-4 rounded-full items-center gap-4 mx-auto h-14"
+          className="flex w-full md:w-[85%] lg:w-[75%] shadow-2xl bg-white border border-gray-100 pl-6 rounded-full items-center gap-4 mx-auto h-16 mt-4 transition-all focus-within:ring-2 focus-within:ring-[#6A38C2]/50"
         >
           <input
             type="text"
             placeholder="Search for Jobs"
             onChange={(e) => setQuery(e.target.value)}
-            className="outline-none border-none w-full h-full text-base"
+            className="outline-none border-none w-full h-full text-base bg-transparent text-gray-800"
           />
-          <Button type="submit" className="rounded-full h-12 w-12 mr-1 cursor-pointer bg-[#6A38C2]">
+          <Button type="submit" className="rounded-full h-12 w-12 mr-2 cursor-pointer bg-[#6A38C2] hover:bg-[#5a2fb0] transition-all flex items-center justify-center">
             <Search className="h-5 w-5 text-white" />
           </Button>
         </form>
