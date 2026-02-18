@@ -20,13 +20,13 @@ const HeroSection = () => {
     <div className="relative h-[90vh] w-full flex items-center justify-center text-center bg-cover bg-center bg-no-repeat" 
          style={{ 
             backgroundImage: "url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop')",
-            backgroundAttachment: "fixed" // Smooth parallax effect
+            backgroundAttachment: "fixed" 
          }}>
       
-      {/* Overlay: Dark at top for Navbar, Transparent in middle, White at bottom to blend */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-white z-0"></div>
+      {/* Overlay: Dark at top for Navbar visibility, White at bottom to blend with content */}
+      <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/20 to-white z-0"></div>
 
-      <div className="relative z-10 flex flex-col gap-5 max-w-4xl px-4 mt-16">
+      <div className="relative z-10 flex flex-col gap-5 max-w-4xl px-4 mt-20"> {/* Increased mt to 20 for better spacing */}
         <span className="px-4 mx-auto py-2 rounded-full bg-white/10 backdrop-blur-lg text-white border border-white/20 font-medium shadow-sm">
           No.1 Job Hunt Platform
         </span>
@@ -36,13 +36,13 @@ const HeroSection = () => {
           <span className="text-[#9b72e9]">Dream Job</span>
         </h1>
         
-        <p className="text-lg text-gray-100 font-medium drop-shadow-sm">
+        <p className="text-lg text-gray-100 font-medium drop-shadow-sm max-w-2xl mx-auto">
           Find the perfect job that matches your skills and experience.
         </p>
 
         <form 
           onSubmit={searchJobHandler} 
-          className="flex w-full md:w-[85%] lg:w-[75%] shadow-2xl bg-white border border-gray-100 pl-6 rounded-full items-center gap-4 mx-auto h-16 mt-4 transition-all focus-within:ring-2 focus-within:ring-[#6A38C2]/50"
+          className="flex w-full md:w-[90%] lg:w-[80%] shadow-2xl bg-white border border-gray-100 pl-6 rounded-full items-center gap-4 mx-auto h-16 mt-6 transition-all focus-within:ring-2 focus-within:ring-[#6A38C2]/50"
         >
           <input
             type="text"
