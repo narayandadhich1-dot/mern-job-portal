@@ -3,6 +3,8 @@ import { Job } from "../models/job.models.js";
 // POST JOB (ADMIN)
 export const postJob = async (req, res) => {
   try {
+    
+      console.log("USER ID:", req.id);
     const {
       title,
       description,
@@ -32,6 +34,7 @@ export const postJob = async (req, res) => {
         message: "All fields are required",
         success: false,
       });
+
     }
 
     // Explicitly convert types to match your Schema
