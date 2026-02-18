@@ -5,6 +5,10 @@ export const postJob = async (req, res) => {
   try {
     
       console.log("USER ID:", req.id);
+      console.log("Salary:", salary);
+console.log("Experience:", experience);
+console.log("Position:", position);
+
     const {
       title,
       description,
