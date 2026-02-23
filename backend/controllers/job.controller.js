@@ -1,4 +1,5 @@
 import { Job } from "../models/job.models.js";
+import { Company } from "../models/company.models.js";
 
 // POST JOB (ADMIN)
 export const postJob = async (req, res) => {
@@ -75,6 +76,8 @@ console.log("Position:", position);
     });
   }
 };
+
+
 export const getAllJobs = async (req, res) => {
   try {
     const keywords = req.query.keywords || "";
@@ -82,25 +85,19 @@ export const getAllJobs = async (req, res) => {
     const industry = req.query.industry || "";
     const salaryRange = req.query.salary || "";
 
-    // First find companies matching keyword
-    const companies = await Job.find()
-      .populate({
-        path: "company",
-        match: {
-          name: { $regex: keywords, $options: "i" },
-        },
-      })
-      .select("_id");
+    // 🔹 Step A: Find companies matching keyword
+    const matchedCompanies = await Company.find({
+      name: { $regex: keywords, $options: "i" },
+    }).select("_id");
 
-    const companyIds = companies
-      .filter(job => job.company !== null)
-      .map(job => job.company._id);
+    const companyIds = matchedCompanies.map((company) => company._id);
 
+    // 🔹 Step B: Build job query
     const query = {
       $or: [
         { title: { $regex: keywords, $options: "i" } },
         { description: { $regex: keywords, $options: "i" } },
-        { company: { $in: companyIds } }, // 🔹 Search by company name
+        { company: { $in: companyIds } }, // Search by company name
       ],
     };
 
@@ -131,7 +128,7 @@ export const getAllJobs = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Get Jobs Error:", error);
     return res.status(500).json({
       message: "Server Error",
       success: false,
