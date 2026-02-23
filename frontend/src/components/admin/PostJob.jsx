@@ -27,7 +27,7 @@ const PostJob = () => {
     salary: "",
     jobType: "",
     experience: "",
-    position: 0,
+    position: "",
     companyId: "",
   });
 
@@ -35,9 +35,21 @@ const PostJob = () => {
   const navigate = useNavigate();
   const { companies = [] } = useSelector((store) => store.company);
 
+  // 🔹 Fixed handler (number conversion)
   const changeEventHandler = (e) => {
     const { name, value } = e.target;
-    setInput({ ...input, [name]: name === "position" ? Number(value) : value });
+
+    if (name === "salary" || name === "experience" || name === "position") {
+      setInput({
+        ...input,
+        [name]: value === "" ? "" : Number(value),
+      });
+    } else {
+      setInput({
+        ...input,
+        [name]: value,
+      });
+    }
   };
 
   const selectChangeHandler = (value) => {
@@ -57,7 +69,7 @@ const PostJob = () => {
       setLoading(true);
       const res = await axios.post(`${JOB_API_END_POINT}/post`, input, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         withCredentials: true,
       });
@@ -68,7 +80,10 @@ const PostJob = () => {
       }
     } catch (error) {
       console.error("Post Job Error:", error.response?.data);
-      toast.error(error.response?.data?.message || "All fields are required or invalid data.");
+      toast.error(
+        error.response?.data?.message ||
+          "All fields are required or invalid data."
+      );
     } finally {
       setLoading(false);
     }
@@ -78,36 +93,85 @@ const PostJob = () => {
     <>
       <Navbar />
       <div className="flex justify-center items-start min-h-screen bg-gray-50 py-10">
-        <form onSubmit={submitHandler} className="w-full max-w-4xl bg-white border border-gray-200 rounded-xl shadow-lg p-8">
+        <form
+          onSubmit={submitHandler}
+          className="w-full max-w-4xl bg-white border border-gray-200 rounded-xl shadow-lg p-8"
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
               <Label>Job Title</Label>
-              <Input name="title" value={input.title} onChange={changeEventHandler} placeholder="e.g. Frontend Developer" />
+              <Input
+                name="title"
+                value={input.title}
+                onChange={changeEventHandler}
+                placeholder="e.g. Frontend Developer"
+              />
             </div>
+
             <div>
               <Label>Job Type</Label>
-              <Input name="jobType" value={input.jobType} onChange={changeEventHandler} placeholder="e.g. Full-time" />
+              <Input
+                name="jobType"
+                value={input.jobType}
+                onChange={changeEventHandler}
+                placeholder="e.g. Full-time"
+              />
             </div>
+
             <div className="md:col-span-2">
               <Label>Description</Label>
-              <Input name="description" value={input.description} onChange={changeEventHandler} placeholder="Describe the role..." />
+              <Input
+                name="description"
+                value={input.description}
+                onChange={changeEventHandler}
+                placeholder="Describe the role..."
+              />
             </div>
+
             <div className="md:col-span-2">
               <Label>Requirements</Label>
-              <Input name="requirements" value={input.requirements} onChange={changeEventHandler} placeholder="e.g. React, Node.js" />
+              <Input
+                name="requirements"
+                value={input.requirements}
+                onChange={changeEventHandler}
+                placeholder="e.g. React, Node.js"
+              />
             </div>
+
             <div>
               <Label>Location</Label>
-              <Input name="location" value={input.location} onChange={changeEventHandler} placeholder="e.g. Remote / New York" />
+              <Input
+                name="location"
+                value={input.location}
+                onChange={changeEventHandler}
+                placeholder="e.g. Remote / Bangalore"
+              />
             </div>
+
+            {/* 🔹 Salary Fixed */}
             <div>
-              <Label>Salary</Label>
-              <Input name="salary" value={input.salary} onChange={changeEventHandler} placeholder="e.g. 80k-100k" />
+              <Label>Salary (LPA)</Label>
+              <Input
+                type="number"
+                name="salary"
+                value={input.salary}
+                onChange={changeEventHandler}
+                placeholder="e.g. 6"
+              />
             </div>
+
+            {/* 🔹 Experience Fixed */}
             <div>
-              <Label>Experience</Label>
-              <Input name="experience" value={input.experience} onChange={changeEventHandler} placeholder="e.g. 2 years" />
+              <Label>Experience (Years)</Label>
+              <Input
+                type="number"
+                name="experience"
+                value={input.experience}
+                onChange={changeEventHandler}
+                placeholder="e.g. 2"
+              />
             </div>
+
             <div>
               <Label>Open Positions</Label>
               <Input
@@ -128,12 +192,14 @@ const PostJob = () => {
                   <SelectContent className="bg-white">
                     <SelectGroup>
                       {companies.map((company) => (
-                        <SelectItem 
-                          key={company._id} 
+                        <SelectItem
+                          key={company._id}
                           value={company._id}
                           className="cursor-pointer"
                         >
-                          {company?.name || company?.companyName || "Unnamed Company"}
+                          {company?.name ||
+                            company?.companyName ||
+                            "Unnamed Company"}
                         </SelectItem>
                       ))}
                     </SelectGroup>
@@ -149,9 +215,12 @@ const PostJob = () => {
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
               </Button>
             ) : (
-              <Button type="submit" className="w-full mt-4">Post Job</Button>
+              <Button type="submit" className="w-full mt-4">
+                Post Job
+              </Button>
             )}
           </div>
+
           {companies.length === 0 && (
             <p className="text-xs text-red-600 font-bold text-center my-3">
               *Please register a company first before posting a job.
