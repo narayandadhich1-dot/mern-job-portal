@@ -80,18 +80,34 @@ export const getAllJobs = async (req, res) => {
     const keywords = req.query.keywords || "";
     const location = req.query.location || "";
     const industry = req.query.industry || "";
-    const salaryRange = req.query.salary || ""; 
+    const salaryRange = req.query.salary || "";
+
+    // First find companies matching keyword
+    const companies = await Job.find()
+      .populate({
+        path: "company",
+        match: {
+          name: { $regex: keywords, $options: "i" },
+        },
+      })
+      .select("_id");
+
+    const companyIds = companies
+      .filter(job => job.company !== null)
+      .map(job => job.company._id);
 
     const query = {
       $or: [
         { title: { $regex: keywords, $options: "i" } },
         { description: { $regex: keywords, $options: "i" } },
+        { company: { $in: companyIds } }, // 🔹 Search by company name
       ],
     };
 
     if (location) {
       query.location = { $regex: location, $options: "i" };
     }
+
     if (industry) {
       query.requirements = { $regex: industry, $options: "i" };
     }
@@ -110,13 +126,6 @@ export const getAllJobs = async (req, res) => {
       .populate("company")
       .sort({ createdAt: -1 });
 
-    if (jobs.length === 0) {
-      return res.status(404).json({
-        message: "No jobs found",
-        success: false,
-      });
-    }
-
     return res.status(200).json({
       jobs,
       success: true,
@@ -129,7 +138,6 @@ export const getAllJobs = async (req, res) => {
     });
   }
 };
-
 // GET JOB BY ID
 
 export const getJobById = async (req, res) => {
