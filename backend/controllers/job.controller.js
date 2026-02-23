@@ -1,5 +1,5 @@
 import { Job } from "../models/job.models.js";
-import { company } from "../models/company.model.js";
+import {  Company  } from "../models/company.model.js";
 
 // POST JOB (ADMIN)
 export const postJob = async (req, res) => {
