@@ -1,7 +1,6 @@
 import { Job } from "../models/job.models.js";
 import {  Company  } from "../models/company.model.js";
 
-// POST JOB (ADMIN)
 export const postJob = async (req, res) => {
   try {
     
@@ -43,18 +42,16 @@ console.log("Position:", position);
       });
 
     }
-
-    // Explicitly convert types to match your Schema
     const job = await Job.create({
       title,
       description,
       location,
       jobType,
-      // Convert string requirements to an array if it's sent as "node, react, css"
+      
       requirements: Array.isArray(requirements) ? requirements : requirements.split(",").map(item => item.trim()),
       salary: Number(salary),
-      experienceLevel: Number(experience), // Fixed: Convert to Number
-      position: Number(position),          // Fixed: Convert to Number
+      experienceLevel: Number(experience), 
+      position: Number(position),          
       company: companyId,
       createdBy: userId,
     });
@@ -69,7 +66,7 @@ console.log("Position:", position);
       success: true,
     });
   } catch (error) {
-    console.error("Post Job Error Detailed:", error); // This will show exactly what field failed in your terminal
+    console.error("Post Job Error Detailed:", error); 
     return res.status(500).json({
       message: "Server Error",
       success: false,
@@ -84,20 +81,17 @@ export const getAllJobs = async (req, res) => {
     const location = req.query.location || "";
     const industry = req.query.industry || "";
     const salaryRange = req.query.salary || "";
-
-    // 🔹 Step A: Find companies matching keyword
     const matchedCompanies = await Company.find({
       name: { $regex: keywords, $options: "i" },
     }).select("_id");
 
     const companyIds = matchedCompanies.map((company) => company._id);
 
-    // 🔹 Step B: Build job query
     const query = {
       $or: [
         { title: { $regex: keywords, $options: "i" } },
         { description: { $regex: keywords, $options: "i" } },
-        { company: { $in: companyIds } }, // Search by company name
+        { company: { $in: companyIds } }, 
       ],
     };
 
@@ -135,7 +129,7 @@ export const getAllJobs = async (req, res) => {
     });
   }
 };
-// GET JOB BY ID
+
 
 export const getJobById = async (req, res) => {
   try {
@@ -165,8 +159,6 @@ export const getJobById = async (req, res) => {
     });
   }
 };
-
-// GET JOBS POSTED BY ADMIN
 export const getAdminJobs = async (req, res) => {
   try {
     const adminId = req.id;

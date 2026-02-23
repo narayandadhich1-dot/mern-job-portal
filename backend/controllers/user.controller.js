@@ -15,8 +15,6 @@ export const register = async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ message: "User already exists", success: false });
         }
-
-        // Handle File Upload
         const file = req.file;
         let profilePictureUrl = "";
 
@@ -72,7 +70,6 @@ export const login = async (req, res) => {
         const tokenData = { id: user._id };
         const token = jwt.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "1d" });
 
-        // This is the important part: including the profile object
         const userResponse = {
             _id: user._id,
             fullname: user.fullname,

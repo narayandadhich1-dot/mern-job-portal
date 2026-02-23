@@ -22,11 +22,9 @@ const HeroSection = () => {
             backgroundImage: "url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop')",
             backgroundAttachment: "fixed" 
          }}>
-      
-      {/* Overlay: Dark at top for Navbar visibility, White at bottom to blend with content */}
       <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/20 to-white z-0"></div>
 
-      <div className="relative z-10 flex flex-col gap-5 max-w-4xl px-4 mt-20"> {/* Increased mt to 20 for better spacing */}
+      <div className="relative z-10 flex flex-col gap-5 max-w-4xl px-4 mt-20"> 
         <span className="px-4 mx-auto py-2 rounded-full bg-white/10 backdrop-blur-lg text-white border border-white/20 font-medium shadow-sm">
           No.1 Job Hunt Platform
         </span>

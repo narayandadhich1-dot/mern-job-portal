@@ -11,8 +11,6 @@ export const applyJob = async (req, res) => {
         .status(400)
         .json({ message: "Job ID is required", success: false });
     }
-
-    //check if user has already applied
     const existingApplication = await Application.findOne({
       job: jobId,
       applicant: userId,
@@ -23,12 +21,10 @@ export const applyJob = async (req, res) => {
         success: false,
       });
     }
-    //check if job still exists
     const job = await Job.findById(jobId);
     if (!job) {
       return res.status(404).json({ message: "Job not found", success: false });
     }
-    // create application
     const newApplication = await Application.create({
       job: jobId,
       applicant: userId,
@@ -45,7 +41,6 @@ export const applyJob = async (req, res) => {
   }
 };
 
-// get all applied job
 export const getAppliedJobs = async (req, res) => {
     try {
         const userId = req.id;

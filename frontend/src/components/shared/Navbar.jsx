@@ -3,7 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { User2Icon, LogOut } from "lucide-react";
-import { Link, useNavigate, useLocation } from "react-router-dom"; // Added useLocation
+import { Link, useNavigate, useLocation } from "react-router-dom"; 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant";
@@ -14,9 +14,8 @@ const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation(); // Hook to check current route
+  const location = useLocation(); 
 
-  // Check if we are on the Home page
   const isHomePage = location.pathname === "/";
 
   const logoutHandler = async () => {
@@ -36,7 +35,6 @@ const Navbar = () => {
   };
 
   return (
-    // Logic: If Home -> Absolute & Transparent. If Admin/Jobs -> Relative & White background.
     <div className={`${isHomePage ? 'absolute' : 'relative bg-white border-b border-gray-200'} top-0 left-0 w-full z-50 transition-all duration-300`}>
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
         <div>
@@ -47,7 +45,6 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center gap-12">
-          {/* Logic: Change text color based on page */}
           <ul className={`flex font-medium items-center gap-5 ${isHomePage ? 'text-white' : 'text-gray-600'}`}>
             {user && user.role === "recruiter" ? (
               <>
@@ -97,7 +94,6 @@ const Navbar = () => {
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent className="w-80 p-4">
-                {/* User details content remains the same */}
                 <div className="flex items-center gap-3 pb-3 border-b">
                   <Avatar className="h-10 w-10">
                     <AvatarImage src={user?.profile?.profilePicture || "https://github.com/shadcn.png"} alt="profile" />

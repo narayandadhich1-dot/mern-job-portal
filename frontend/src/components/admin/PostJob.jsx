@@ -34,8 +34,6 @@ const PostJob = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { companies = [] } = useSelector((store) => store.company);
-
-  // 🔹 Fixed handler (number conversion)
   const changeEventHandler = (e) => {
     const { name, value } = e.target;
 
@@ -82,7 +80,7 @@ const PostJob = () => {
       console.error("Post Job Error:", error.response?.data);
       toast.error(
         error.response?.data?.message ||
-          "All fields are required or invalid data."
+          "All fields are required or invalid data.",
       );
     } finally {
       setLoading(false);
@@ -147,8 +145,6 @@ const PostJob = () => {
                 placeholder="e.g. Remote / Bangalore"
               />
             </div>
-
-            {/* 🔹 Salary Fixed */}
             <div>
               <Label>Salary (LPA)</Label>
               <Input
@@ -159,8 +155,6 @@ const PostJob = () => {
                 placeholder="e.g. 6"
               />
             </div>
-
-            {/* 🔹 Experience Fixed */}
             <div>
               <Label>Experience (Years)</Label>
               <Input
